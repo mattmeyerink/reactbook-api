@@ -3,6 +3,8 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from flask_cors import CORS, cross_origin
+
 
 db = SQLAlchemy()
 login = LoginManager()
@@ -15,6 +17,8 @@ def create_app(config_obj=Config):
     db.init_app(app)
     login.init_app(app)
     migrate.init_app(app, db)
+
+    cors = CORS(app)
 
     from .blueprints.authentication import auth_bp
     app.register_blueprint(auth_bp)
